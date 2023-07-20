@@ -48,10 +48,20 @@ const headline= async (req, res)=> {
     const obj = {}
     const $ = tools.loadCheerio({html: response.data});
     //penasaran gw sama response.data jadi iseng update :v
+    const main = $('div#tdi_9');
+    obj.data = [];
+    $(main).find('div.td_module_mx5').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+
+        obj.data.push({ title, link, endpoint });
+    }
+    );
     res.json({
         success: true,
-        data: response.data
-    })
+        data: obj
+    });
 
    
 }
