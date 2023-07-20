@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/home', controller.home);
+router.get('/headline', controller.headline);
 
 
 module.exports = router;

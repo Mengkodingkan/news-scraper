@@ -37,6 +37,27 @@ const home = async (req, res) => {
     });
 };
 
+const headline= async (req, res)=> {
+    const response = await tools.get({ url: 'category/metropolis/headline' });
+    if (response.status !== 200) {
+        return res.json({
+            success: false,
+            message: 'Error'
+        });
+    }
+    const obj = {}
+    const $ = tools.loadCheerio({html: response.data});
+    //penasaran gw sama response.data jadi iseng update :v
+    res.json({
+        success: true,
+        data: response.data
+    })
+
+   
+}
+
+
 module.exports = {
-    home
+    home,
+    headline
 };
