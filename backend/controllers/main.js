@@ -54,7 +54,7 @@ const home = async (req, res) => {
     });
 };
 
-const headline= async (req, res)=> {
+const headline = async (req, res)=> {
     const response = await tools.get({ url: 'category/metropolis/headline' });
     if (response.status !== 200) {
         return res.json({
@@ -65,16 +65,37 @@ const headline= async (req, res)=> {
     const obj = {}
     const $ = tools.loadCheerio({html: response.data});
     //penasaran gw sama response.data jadi iseng update :v
-    const main = $('div#tdi_9');
+    const main = $('#tdi_9');
+
     obj.data = [];
-    $(main).find('div.td_module_mx5').each((i, el) => {
+    $(main).find('.td_module_mx5').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
+        const thumbnail = $(el).find('img').attr('src');
         const endpoint = link.replace(tools.BASE_URL, '');
 
-        obj.data.push({ title, link, endpoint });
+        obj.data.push({ title, link, thumbnail, endpoint });
     }
     );
+    $(main).find('.td_module_mx6').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const thumbnail = $(el).find('img').attr('src');
+        const endpoint = link.replace(tools.BASE_URL, '');
+
+        obj.data.push({ title, link,thumbnail, endpoint });
+    });
+
+    $(main).find('.td-ss-main-content').find('.td-block-span6').each((i, el) => {
+        const title = $(el).find('.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const thumbnail = $(el).find('img').attr('src');
+        const endpoint = link.replace(tools.BASE_URL, '');
+    
+        obj.data.push({ title, link,thumbnail, endpoint });
+    });
+
+
     res.json({
         success: true,
         data: obj
