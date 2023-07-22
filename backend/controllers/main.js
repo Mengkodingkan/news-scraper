@@ -30,6 +30,23 @@ const home = async (req, res) => {
         obj.main_menu.push({ title, link, endpoint });
     });
 
+    obj.module_flex_6 = [];
+    $(main).find('#tdi_9').find('div.td_module_flex_6').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+
+        obj.module_flex_6.push({ title, link, endpoint });
+    });
+
+    obj.module_flex_7 = [];
+    $(main).find('#tdi_9').find('div.td_module_flex_7').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+
+        obj.module_flex_7.push({ title, link, endpoint });
+    });
 
     res.json({
         success: true,
