@@ -1,7 +1,0 @@
-### Home
-GET {{BASEURL}}/home
-
-
-### Headline
-GET {{BASEURL}}/headline
-
