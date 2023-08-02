@@ -9,7 +9,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/home', controller.home);
-router.get('/headline', controller.headline);
+router.get('/categories', controller.categories);
+router.get('/category/:category/:option?', controller.category);
+
+// news static route more than 1
+// router.get('/news/:category-:option', controller.news);
 
 
 module.exports = router;
