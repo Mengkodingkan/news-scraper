@@ -54,7 +54,7 @@ const home = async (req, res) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('span').attr('data-img-url');
+        const thumbnail = $(el).find('img').attr('data-src');
 
         obj.berita_terbaru.push({ title, link, endpoint, thumbnail });
     });
@@ -86,8 +86,8 @@ const home = async (req, res) => {
 
 /**
  * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
+ * @param {Request} req 
+ * @param {Response} res 
  * @returns 
  */
 const categories = async (req, res) => {
@@ -112,8 +112,8 @@ const categories = async (req, res) => {
 
 /**
  * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
+ * @param {Request} req 
+ * @param {Response} res 
  * @returns <Promise>
  */
 const category = async (req, res) => {
@@ -168,10 +168,15 @@ const category = async (req, res) => {
 
     obj.pagination = [];
     $(main).find('.page-nav').children().each((i, el) => {
+        const label = $(el).attr('aria-label');
         if (el.name === 'span')
             obj.pagination.push({ title: $(el).text(), link: null, endpoint: null });
+        else if (el.name === 'a' && label === 'prev-page')
+            obj.pagination.push({ title: '<', link: $(el).attr('href'), endpoint: $(el).attr('href').replace(tools.BASE_URL, '') });
+        else if (el.name === 'a' && label === 'next-page')
+            obj.pagination.push({ title: '>', link: $(el).attr('href'), endpoint: $(el).attr('href').replace(tools.BASE_URL, '') });
         else if (el.name === 'a')
-            obj.pagination.push({ title: $(el).attr('title'), link: $(el).attr('href'), endpoint: $(el).attr('href').replace(tools.BASE_URL, '') });
+            obj.pagination.push({ title: $(el).text(), link: $(el).attr('href'), endpoint: $(el).attr('href').replace(tools.BASE_URL, '') });
     });
 
     return res.json({
@@ -179,7 +184,6 @@ const category = async (req, res) => {
         data: obj
     });
 };
-
 
 module.exports = {
     home,

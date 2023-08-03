@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/main')
+const categoryCheck = require('../middleware/categoryCheck');
 
 router.get('/', (req, res) => {
     res.json({
@@ -10,10 +11,6 @@ router.get('/', (req, res) => {
 
 router.get('/home', controller.home);
 router.get('/categories', controller.categories);
-router.get('/category/:category/:option?', controller.category);
-
-// news static route more than 1
-// router.get('/news/:category-:option', controller.news);
-
+router.get('/category/:category/:option?', categoryCheck, controller.category);
 
 module.exports = router;
