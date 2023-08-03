@@ -25,6 +25,12 @@ const news = async (req, res) => {
     const obj = {};
 
     obj.title = $(main).find('.td-post-title').find('.entry-title').text();
+    obj.publish_date = $(main).find('.td-post-header').find('.td-post-date').find('.entry-date').text();
+    obj.description = $(main).find('.wp-caption-text').text();
+    obj.post_content = $(main).find('.td-post-content').find('p').html();
+    obj.thumbnail = $(main).find('.entry-thumb').attr('data-src');
+    obj.prev_content = $(main).find('.td-post-next-prev-content').find('a').attr('href');
+    obj.next_content = $(main).find('.td-post-next-prev-content').find('a').attr('href');
 
     return res.json({
         success: true,
