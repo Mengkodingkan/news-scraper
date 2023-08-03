@@ -12,6 +12,11 @@ const Navbar = () => {
                 <div className="nav-top">
                     <div className="container">
                         <h5>NEWS SCRAPER</h5>
+                        <div className="hamburger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
                 <div className="nav-bottom">
@@ -19,8 +24,8 @@ const Navbar = () => {
                         <Link to="/" className="anchor">Home</Link>
                         <div className="dropdown">
                             <div className="top menu-dropdown">
-                                <Link to="/" className="anchor">Home</Link>
-                                <i class="bi bi-chevron-down"></i>
+                                <Link to="/" className="anchor">Metropolis</Link>
+                                <i className="bi bi-chevron-down"></i>
                             </div>
                             <div className="bottom"></div>
                         </div>
