@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', require('./routes/main'));
+app.use('/api', require('./routes/main'), require('./routes/content'));
 
 app.get('*', (req, res) => {
     res.json({
