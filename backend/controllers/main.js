@@ -71,11 +71,12 @@ const home = async (req, res) => {
 
     obj.kategori = [];
     $(main).find('.td-pb-padding-side').find('li').each((i, el) => {
-        const title = $(el).find('a').text();
+        const title = $(el).find('.td-cat-name').text();
+        const count = parseInt($(el).find('.td-cat-no').text());
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
 
-        obj.kategori.push({ title, link, endpoint });
+        obj.kategori.push({ title, count, link, endpoint });
     });
 
     res.json({
