@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 
 const dropdownActive = () => {
-    const menuDropdown = document.querySelector('.menu-dropdown');
-    menuDropdown.classList.toggle('active');
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.add('active');
+}
+
+const dropdownNonActive = () => {
+    const dropdown = document.querySelector('.dropdown');
+    dropdown.classList.remove('active');
+}
+
+const hamburgerActive = () => {
+    const sidebar_contents = document.querySelector('.sidebar-contents');
+    sidebar_contents.classList.toggle('active');
+    document.querySelector('body').classList.toggle('active');
 }
 
 const Navbar = () => {
@@ -12,7 +23,7 @@ const Navbar = () => {
                 <div className="nav-top">
                     <div className="container">
                         <h5>NEWS SCRAPER</h5>
-                        <div className="hamburger">
+                        <div className="hamburger" onClick={hamburgerActive}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -22,12 +33,15 @@ const Navbar = () => {
                 <div className="nav-bottom">
                     <div className="container">
                         <Link to="/" className="anchor">Home</Link>
-                        <div className="dropdown">
+                        <div className="dropdown" onMouseMove={dropdownActive} onMouseLeave={dropdownNonActive}>
                             <div className="top menu-dropdown">
                                 <Link to="/" className="anchor">Metropolis</Link>
                                 <i className="bi bi-chevron-down"></i>
                             </div>
-                            <div className="bottom"></div>
+                            <div className="bottom">
+                                <Link to="/" className="anchor">Headline</Link>
+                                <Link to="/" className="anchor">Bisnis</Link>
+                            </div>
                         </div>
                         <Link to="/" className="anchor">Purwakarta</Link>
                         <Link to="/" className="anchor">Cikampek</Link>
