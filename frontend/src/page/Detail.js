@@ -2,7 +2,6 @@ import React from 'react';
 import Sidebar from "../component/Sidebar";
 import LatestNews from "../component/LatestNews";
 import Navbar from '../component/Navbar';
-import Footer from '../component/Footer';
 
 const Detail = () => {
     return (
@@ -68,11 +67,6 @@ const Detail = () => {
                     <LatestNews />
                 </div>
             </div>
-
-            {/* Footer */}
-            <footer>
-                <Footer />
-            </footer>
 
             <Sidebar />
         </>
