@@ -98,11 +98,12 @@ const categories = async (req, res) => {
 
     const arr_categories = [];
     $(main).find('.td-pb-padding-side').find('li').each((i, el) => {
-        const title = $(el).find('a').text();
+        const title = $(el).find('.td-cat-name').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
+        const count = parseInt($(el).find('.td-cat-no').text());
 
-        arr_categories.push({ title, link, endpoint });
+        arr_categories.push({ title, link, count, endpoint });
     });
 
     return res.json({
