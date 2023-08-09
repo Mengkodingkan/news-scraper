@@ -1,92 +1,63 @@
+// metropolis.js
 import { Link } from "react-router-dom";
-import img from '../img/3.jpg';
-
-const prev = () => {
-    const slider = document.querySelector('.slider-3');
-    let containerDimensions = slider.getBoundingClientRect();
-    let containerWidth = containerDimensions.width;
-
-    slider.scrollLeft -= containerWidth;
-}
-
-const next = () => {
-    const slider = document.querySelector('.slider-3');
-    let containerDimensions = slider.getBoundingClientRect();
-    let containerWidth = containerDimensions.width;
-
-    slider.scrollLeft += containerWidth;
-}
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 const Metropolis = () => {
-    return(
-        <>
-            <div className="metropolis-contents">
-                <div className="title">
-                    <div className="line"></div>
-                    <p>Metropolis</p>
-                    <div className="line"></div>
-                </div>
-                <div className="slider-3">
-                    {/* looping for page */}
-                    <div className="page">
-                        {/* Looping for card */}
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                        {/* end of looing */}
-                    </div>
-                    <div className="page">
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="page">
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                        <div className="card">
-                            <img src={img} alt="" />
-                            <div className="desc">
-                                <Link to="/detail" className="anchor">Anne Klaim Keberhasilan Purwakarta</Link>
-                                <p>27 Juli 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    {/* end of looping */}
-                </div>
-                <div className="pagination-container">
-                    <button onClick={prev}><i className="bi bi-chevron-left"></i></button>
-                    <button onClick={next}><i className="bi bi-chevron-right"></i></button>
-                </div>
+  const [metropolisNews, setMetropolisNews] = useState([]);
+  const sliderRef = useRef(null);
+
+  const prev = () => {
+    const slider = sliderRef.current;
+    if (slider) {
+      let containerDimensions = slider.getBoundingClientRect();
+      let containerWidth = containerDimensions.width;
+      slider.scrollLeft -= containerWidth;
+    }
+  }
+
+  const next = () => {
+    const slider = sliderRef.current;
+    if (slider) {
+      let containerDimensions = slider.getBoundingClientRect();
+      let containerWidth = containerDimensions.width;
+      slider.scrollLeft += containerWidth;
+    }
+  }
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/home')
+      .then(response => {
+        const metropolisNewsData = response.data.data.metropolis;
+        setMetropolisNews(metropolisNewsData);
+      })
+      .catch(error => {
+        console.error('Error fetching Metropolis news:', error);
+      });
+  }, []);
+
+  return (
+    <div className="metropolis-contents">
+      <div className="slider-3" ref={sliderRef}>
+        {metropolisNews.length > 0 ? (
+          metropolisNews.map((news, index) => (
+            <div className="card" key={index}>
+              <img src={news.thumbnail} alt="" />
+              <div className="desc">
+                <Link to={news.link} className="anchor">{news.title}</Link>
+              </div>
             </div>
-        </>
-    )
+          ))
+        ) : (
+          <p>Loading metropolis news...</p>
+        )}
+      </div>
+      <div className="pagination-container">
+        <button onClick={prev}><i className="bi bi-chevron-left"></i></button>
+        <button onClick={next}><i className="bi bi-chevron-right"></i></button>
+      </div>
+    </div>
+  );
 }
 
 export default Metropolis;
