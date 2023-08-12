@@ -34,19 +34,23 @@ const home = async (req, res) => {
     $(main).find('#tdi_9').find('div.td_module_flex_6').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
-        const endpoint = link.replace(tools.BASE_URL, '');
         const thumbnail = $(el).find('span').attr('data-img-url');
+        const author = $(el).find('.td-editor-date').find('a').text();
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+        const endpoint = link.replace(tools.BASE_URL, '');
 
-        obj.headline.push({ title, link, endpoint, thumbnail });
+        obj.headline.push({ title, thumbnail, author, date, link, endpoint });
     });
 
     $(main).find('#tdi_9').find('div.td_module_flex_7').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
+        const author = $(el).find('.td-editor-date').find('a').text();
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+        const thumbnail = $(el).find('span').attr('data-img-url');
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('span').attr('data-img-url');
 
-        obj.headline.push({ title, link, endpoint, thumbnail });
+        obj.headline.push({ title, thumbnail, author, date, link, endpoint });
     });
 
     obj.berita_terbaru = [];
@@ -55,8 +59,9 @@ const home = async (req, res) => {
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
         const thumbnail = $(el).find('img').attr('data-src');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
 
-        obj.berita_terbaru.push({ title, link, endpoint, thumbnail });
+        obj.berita_terbaru.push({ title, thumbnail, date, link, endpoint });
     });
 
     obj.metropolis = [];
@@ -67,6 +72,28 @@ const home = async (req, res) => {
         const thumbnail = $(el).find('span').attr('data-img-url');
 
         obj.metropolis.push({ title, link, endpoint, thumbnail });
+    });
+
+    obj.picks_editor = [];
+    $(main).find('#tdi_120').find('.td-block-span12').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+        const thumbnail = $(el).find('img').attr('data-src');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+
+        obj.picks_editor.push({ title, thumbnail, date, link, endpoint });
+    });
+
+    obj.posting_populer = [];
+    $(main).find('#tdi_121').find('.td-block-span12').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+        const thumbnail = $(el).find('img').attr('data-src');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+
+        obj.posting_populer.push({ title, thumbnail, date, link, endpoint });
     });
 
     obj.kategori = [];
