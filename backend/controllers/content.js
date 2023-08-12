@@ -52,6 +52,7 @@ const news = async (req, res) => {
         endpoint: $(author).find('a').attr('href').replace(tools.BASE_URL, ''),
         social: []
     };
+
     const social = $(main).find('.td-author-social').children();
     $(social).each((i, el) => {
         const title = $(el).find('a').attr('title');
