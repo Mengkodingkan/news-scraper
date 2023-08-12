@@ -7,22 +7,38 @@ const Metropolis = () => {
   const [metropolisNews, setMetropolisNews] = useState([]);
   const sliderRef = useRef(null);
 
+  // const prev = () => {
+  //   const slider = sliderRef.current;
+  //   if (slider) {
+  //     let containerDimensions = slider.getBoundingClientRect();
+  //     let containerWidth = containerDimensions.width;
+  //     slider.scrollLeft -= containerWidth;
+  //   }
+  // }
+
+  // const next = () => {
+  //   const slider = sliderRef.current;
+  //   if (slider) {
+  //     let containerDimensions = slider.getBoundingClientRect();
+  //     let containerWidth = containerDimensions.width;
+  //     slider.scrollLeft += containerWidth;
+  //   }
+  // }
+
   const prev = () => {
-    const slider = sliderRef.current;
-    if (slider) {
-      let containerDimensions = slider.getBoundingClientRect();
-      let containerWidth = containerDimensions.width;
-      slider.scrollLeft -= containerWidth;
-    }
+    const slider = document.querySelector('.slider-3');
+    let containerDimensions = slider.getBoundingClientRect();
+    let containerWidth = containerDimensions.width;
+
+    slider.scrollLeft -= containerWidth;
   }
 
   const next = () => {
-    const slider = sliderRef.current;
-    if (slider) {
+      const slider = document.querySelector('.slider-3');
       let containerDimensions = slider.getBoundingClientRect();
       let containerWidth = containerDimensions.width;
+
       slider.scrollLeft += containerWidth;
-    }
   }
 
   useEffect(() => {

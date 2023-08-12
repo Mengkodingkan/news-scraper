@@ -136,7 +136,8 @@
   padding-bottom: 0;
 }
 
-.navbar > .nav-bottom > .container > .dropdown > .top > .anchor {
+.navbar > .nav-bottom > .container > .dropdown > .top > .anchor,
+.detail-contents > .container > .route > .anchor {
     text-decoration: none;
     color: #3d3d3d;
     font-weight: 400;
@@ -166,7 +167,8 @@
   opacity: 1;
 }
 
-.home-contents > .container {
+.home-contents > .container,
+.detail-contents > .container {
   /* border: 1px solid red; */
   margin-top: 100px;
   margin-bottom: 50px;
@@ -184,10 +186,27 @@
   scroll-behavior: smooth;
 }
 
-.home-contents > .container > .slider > img {
-  width: 250px;
-  /* border: 1px solid red; */
-  border-radius: 3px;
+.home-contents > .container > .slider > .card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  border: .1px solid #ced4da;
+  position: relative;
+  min-width: 250px;
+  overflow: hidden;
+}
+
+.home-contents > .container > .slider > .card > img {
+  width: 100%;
+}
+
+.home-contents > .container > .slider > .card > .anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .home-contents > .container > .pagination-container,
@@ -277,44 +296,35 @@
   scroll-behavior: smooth;
 }
 
-.home-contents > .container > .latest-news-contents > .slider-2 > .page,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page {
-  /* border: 1px solid red; */
-  min-width: 50%;
-  /* min-height: 100px; */
+.home-contents > .container > .latest-news-contents > .slider-2 > .card,
+.home-contents > .container > .metropolis-contents > .slider-3 > .card {
+  min-width: 250px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  /* border: 1px solid red */
 }
 
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card {
+.home-contents > .container > .latest-news-contents > .slider-2 > .card > img,
+.home-contents > .container > .metropolis-contents > .slider-3 > .card > img {
   width: 100%;
-  /* min-height: 100px; */
-  border: none !important;
-  border-radius: 0 !important;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  /* border: 1px solid red; */
+  object-fit: cover !important;
+  height: auto !important;
 }
 
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card > img,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card > img {
-  width: 200px;
-}
-
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card > .desc,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card > .desc {
+.home-contents > .container > .latest-news-contents > .slider-2 > .card > .desc,
+.home-contents > .container > .metropolis-contents > .slider-3 > .card > .desc {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px;
 }
 
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card > .desc > .anchor,
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card > .desc > p,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card > .desc > .anchor,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card > .desc > p {
+.home-contents > .container > .latest-news-contents > .slider-2 > .card > .desc > .anchor,
+.home-contents > .container > .latest-news-contents > .slider-2 > .card > .desc > p,
+.home-contents > .container > .metropolis-contents > .slider-3  > .card > .desc > .anchor,
+.home-contents > .container > .metropolis-contents > .slider-3  > .card > .desc > p {
   color: #3d3d3d;
   font-size: 14px;
   letter-spacing: 1px;
@@ -322,8 +332,8 @@
   font-weight: 400;
 }
 
-.home-contents > .container > .latest-news-contents > .slider-2 > .page > .card > .desc > p,
-.home-contents > .container > .metropolis-contents > .slider-3 > .page > .card > .desc > p {
+.home-contents > .container > .latest-news-contents > .slider-2 > .card > .desc > p,
+.home-contents > .container > .metropolis-contents > .slider-3 > .card > .desc > p {
   font-size: 13px;
   font-weight: lighter;
 }
@@ -449,6 +459,25 @@
   background-color: #ced4da;
 }
 
+.detail-contents > .container > .route {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* border: 1px solid blue; */
+  gap: 10px;
+}
+
+.detail-contents > .container > .main-contents {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.detail-contents > .container > .main-contents > .main-detail-contents {
+  flex: 1;
+  /* border: .1px solid #ced4da; */
+}
+
 /* footer */
 footer {
   background-color: #444544;
@@ -553,9 +582,13 @@ footer > .container > .column > .item > .desc > .date {
 }
 
 @media screen and (max-width: 768px) {
-  .home-contents > .container > .latest-news-contents > .slider-2 > .page,
-  .home-contents > .container > .metropolis-contents > .slider-3 > .page {
+  .home-contents > .container > .latest-news-contents > .slider-2,
+  .home-contents > .container > .metropolis-contents > .slider-3 {
     min-width: 100%;
+  }
+
+  .detail-contents > .container > .route {
+    flex-wrap: wrap;
   }
 }
 

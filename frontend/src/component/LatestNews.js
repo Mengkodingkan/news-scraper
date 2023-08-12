@@ -8,21 +8,19 @@ const LatestNews = () => {
   const sliderRef = useRef(null);
 
   const prev = () => {
-    const slider = sliderRef.current;
-    if (slider) {
-      let containerDimensions = slider.getBoundingClientRect();
-      let containerWidth = containerDimensions.width;
-      slider.scrollLeft -= containerWidth;
-    }
+    const slider = document.querySelector('.slider-2');
+    let containerDimensions = slider.getBoundingClientRect();
+    let containerWidth = containerDimensions.width;
+
+    slider.scrollLeft -= containerWidth;
   }
 
   const next = () => {
-    const slider = sliderRef.current;
-    if (slider) {
+      const slider = document.querySelector('.slider-2');
       let containerDimensions = slider.getBoundingClientRect();
       let containerWidth = containerDimensions.width;
+
       slider.scrollLeft += containerWidth;
-    }
   }
 
   useEffect(() => {
@@ -44,9 +42,9 @@ const LatestNews = () => {
         <div className="line"></div>
       </div>
       <div className="slider-2" ref={sliderRef}>
-        {/* {latestNews.map(newsItem => (
+        {latestNews.map(newsItem => (
           <div className="card" key={newsItem.link}>
-            <img src={newsItem.thumbnail || img} alt="test" />
+            <img src={newsItem.thumbnail} alt="test" />
             <div className="desc">
               <Link to={`/detail/${newsItem.endpoint}`} className="anchor">
                 {newsItem.title}
@@ -54,7 +52,7 @@ const LatestNews = () => {
               <p>{newsItem.date}</p>
             </div>
           </div>
-        ))} */}
+        ))}
       </div>
       <div className="pagination-container">
         <button onClick={prev}><i className="bi bi-chevron-left"></i></button>

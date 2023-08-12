@@ -1,4 +1,5 @@
 import img from '../img/1.jpg';
+import { Link } from "react-router-dom";
 
 const prev = () => {
     const slider = document.querySelector('.slider');
@@ -22,12 +23,30 @@ const Carousel = () => {
         <>
             <div className="slider">
                 {/* Looping for card */}
-                <img src={img} alt="" />
-                <img src={img} alt="" />
-                <img src={img} alt="" />
-                <img src={img} alt="" />
-                <img src={img} alt="" />
-                <img src={img} alt="" />
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
+                <div className='card'>
+                    <img src={img} alt="" />
+                    <Link to={'/detail'} className='anchor'></Link>
+                </div>
                 {/* end of looping */}
             </div> 
             <div className="pagination-container">
