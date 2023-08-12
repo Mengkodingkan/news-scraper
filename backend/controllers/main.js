@@ -147,7 +147,7 @@ const categories = async (req, res) => {
  */
 const category = async (req, res) => {
     const { category, option } = req.params;
-    const { page = 1 } = req.query;
+    const { page = 1} = req.query;
     if (!category) return res.json({ success: false, message: 'Category is required' }, 400);
 
     let URL = null;
@@ -169,30 +169,36 @@ const category = async (req, res) => {
     obj.discovery = [];
     $(main).find('#tdi_9').find('.td_module_mx5').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
+        const thumbnail = $(el).find('img').attr('data-img-url');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+        const author = $(el).find('.td-post-author-name').find('a').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('img').attr('data-img-url');
 
-        obj.discovery.push({ title, link, endpoint, thumbnail });
+        obj.discovery.push({ title, thumbnail, author, date, link, endpoint});
     });
 
     $(main).find('#tdi_9').find('.td_module_mx6').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
+        const thumbnail = $(el).find('img').attr('data-img-url');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+        const author = $(el).find('.td-post-author-name').find('a').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('img').attr('data-img-url');
 
-        obj.discovery.push({ title, link, endpoint, thumbnail });
+        obj.discovery.push({ title, thumbnail, author, date, link, endpoint});
     });
 
     obj.news = [];
     $(main).find('.td-ss-main-content').find('.td_module_1').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
+        const thumbnail = $(el).find('img').attr('data-img-url');
+        const author = $(el).find('.td-post-author-name').find('a').text();
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('img').attr('data-img-url');
 
-        obj.news.push({ title, link, endpoint, thumbnail });
+        obj.news.push({ title, thumbnail, author, date, link, endpoint });
     });
 
     obj.pagination = [];
