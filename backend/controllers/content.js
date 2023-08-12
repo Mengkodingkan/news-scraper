@@ -60,11 +60,49 @@ const news = async (req, res) => {
         obj.author.social.push({ title, link, endpoint });
     });
 
+    obj.berita_terkait = [];
+    $(main).find('.td-related-row').find('.td-related-span4').each((i, el) => {
+        const title = $(el).find('.td-module-title').text();
+        const thumbnail = $(el).find('.entry-thumb').attr('data-src');
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
 
-    return res.json({
-        success: true,
-        data: obj
+        obj.berita_terkait.push({ title, thumbnail, link, endpoint });
     });
+
+    obj.picks_editor = [];
+    $(main).find('#tdi_120').find('.td-block-span12').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+        const thumbnail = $(el).find('img').attr('data-src');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+
+        obj.picks_editor.push({ title, thumbnail, date, link, endpoint });
+    });
+
+    obj.posting_populer = [];
+    $(main).find('#tdi_121').find('.td-block-span12').each((i, el) => {
+        const title = $(el).find('h3.entry-title').text();
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+        const thumbnail = $(el).find('img').attr('data-src');
+        const date = $(el).find('.td-post-date').find('time').attr('datetime');
+
+        obj.posting_populer.push({ title, thumbnail, date, link, endpoint });
+    });
+
+    obj.kategori = [];
+    $(main).find('.td-pb-padding-side').find('li').each((i, el) => {
+        const title = $(el).find('.td-cat-name').text();
+        const count = parseInt($(el).find('.td-cat-no').text());
+        const link = $(el).find('a').attr('href');
+        const endpoint = link.replace(tools.BASE_URL, '');
+
+        obj.kategori.push({ title, count, link, endpoint });
+    });
+
+    return res.json({ success: true, data: obj });
 };
 
 module.exports = { news };
