@@ -44,7 +44,7 @@ const LatestNews = () => {
         <div className="line"></div>
       </div>
       <div className="slider-2" ref={sliderRef}>
-        {latestNews.map(newsItem => (
+        {/* {latestNews.map(newsItem => (
           <div className="card" key={newsItem.link}>
             <img src={newsItem.thumbnail || img} alt="test" />
             <div className="desc">
@@ -54,7 +54,7 @@ const LatestNews = () => {
               <p>{newsItem.date}</p>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
       <div className="pagination-container">
         <button onClick={prev}><i className="bi bi-chevron-left"></i></button>
