@@ -105,6 +105,25 @@ const news = async (req, res) => {
         obj.kategori.push({ title, count, link, endpoint });
     });
 
+    const cache = await prisma.news.findFirst({
+        where: {
+            endpoint: endpoint
+        }
+    });
+
+    if (cache) {
+        await prisma.news.update({
+            where: {
+                id: cache.id
+            },
+            data: {
+                json: JSON.stringify(obj)
+            }
+        });
+
+        return res.json({ success: true, data: obj });
+    }
+
     // save to database
     await prisma.news.create({
         data: {
