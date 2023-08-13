@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const controller = require('../controllers/main')
-const categoryCheck = require('../middleware/categoryCheck');
+const cacheCheck = require('../middleware/cacheCheck');
 
 router.get('/', (req, res) => {
     res.json({
@@ -11,6 +11,6 @@ router.get('/', (req, res) => {
 
 router.get('/home', controller.home);
 router.get('/categories', controller.categories);
-router.get('/category/:category/:option?', categoryCheck, controller.category);
+router.get('/category/:category/:option?', cacheCheck, controller.category);
 
 module.exports = router;

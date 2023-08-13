@@ -1,6 +1,8 @@
 const { Request, Response } = require('express');
+const { PrismaClient } = require('@prisma/client');
 const Tools = require('../tools');
 const tools = new Tools();
+const prisma = new PrismaClient();
 
 /**
  * 
@@ -101,6 +103,15 @@ const news = async (req, res) => {
         const endpoint = link.replace(tools.BASE_URL, '');
 
         obj.kategori.push({ title, count, link, endpoint });
+    });
+
+    // save to database
+    await prisma.news.create({
+        data: {
+            endpoint,
+            json: JSON.stringify(obj),
+            type: 'NEWS'
+        }
     });
 
     return res.json({ success: true, data: obj });
