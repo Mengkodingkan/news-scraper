@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
-import Navbar from '../component/Navbar';
 import DetailContent from '../component/DetailContent';
 import SidebarDetail from '../component/SidebarDetail';
 
 const Detail = () => {
     return (
         <>
-            <Navbar></Navbar>
-
             <div className='detail-contents'>
                 <div className='container'>
                     <div className='route'>
@@ -20,6 +17,7 @@ const Detail = () => {
                     </div>
                     <div className='main-contents'>
                         <DetailContent />
+                        <div className='line'></div>
                         <SidebarDetail />
                     </div>
                 </div>

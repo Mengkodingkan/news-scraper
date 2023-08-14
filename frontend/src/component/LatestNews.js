@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
-import img from '../img/2.jpg';
 import axios from 'axios';
 
 const LatestNews = () => {
