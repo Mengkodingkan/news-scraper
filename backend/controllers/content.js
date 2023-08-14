@@ -74,7 +74,7 @@ const news = async (req, res) => {
     });
 
     obj.picks_editor = [];
-    $(main).find('#tdi_120').find('.td-block-span12').each((i, el) => {
+    $(main).find('#tdi_8').find('.td-block-span12').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
@@ -85,7 +85,7 @@ const news = async (req, res) => {
     });
 
     obj.posting_populer = [];
-    $(main).find('#tdi_121').find('.td-block-span12').each((i, el) => {
+    $(main).find('#tdi_9').find('.td-block-span12').each((i, el) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
@@ -114,10 +114,11 @@ const news = async (req, res) => {
     if (cache) {
         await prisma.news.update({
             where: {
-                id: cache.id
+                endpoint: endpoint
             },
             data: {
-                json: JSON.stringify(obj)
+                json: JSON.stringify(obj),
+                updatedAt: new Date()
             }
         });
 

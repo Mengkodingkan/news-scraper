@@ -30,11 +30,11 @@ module.exports = async (req, res, next) => {
         return;
     }
 
-    const createdAt = new Date(news.createdAt);
+    const updatedAt = new Date(news.updatedAt);
     const now = Date.now();
 
     // check if time more than 1 hour
-    if (now - createdAt.getTime() > 3600000) {
+    if (now - updatedAt.getTime() > 3600000) {
         next();
         return;
     }
