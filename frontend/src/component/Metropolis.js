@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Home } from '../services/home.service';
 
-const Metropolis = () => {
-  const [metropolisNews, setMetropolisNews] = useState([]);
+const Metropolis = ( {metropolis} ) => {
   const sliderRef = useRef(null);
 
   const prev = () => {
@@ -20,20 +18,10 @@ const Metropolis = () => {
     }
   };
 
-  useEffect(() => {
-    Home().then(response => {
-      setMetropolisNews(response.data.metropolis);
-    })
-    .catch(error => {
-      console.error('error fetching data:', error);
-    })
-  }, []);
-
   return (
     <div className="metropolis-contents">
       <div className="slider-3" ref={sliderRef}>
-        {metropolisNews.length > 0 ? (
-          metropolisNews.map(news => (
+          {metropolis.map(news => (
             <div className="card" key={news.endpoint}>
               <img src={news.thumbnail} alt="" />
               <div className="desc">
@@ -42,10 +30,7 @@ const Metropolis = () => {
                 </Link>
               </div>
             </div>
-          ))
-        ) : (
-          <p>Loading metropolis news...</p>
-        )}
+          ))}
       </div>
       <div className="pagination-container">
         <button onClick={prev}><i className="bi bi-chevron-left"></i></button>

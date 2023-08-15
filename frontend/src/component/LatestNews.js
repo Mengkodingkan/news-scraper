@@ -1,19 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Home } from '../services/home.service';
 
-const LatestNews = () => {
-  const [latestNews, setLatestNews] = useState([]);
+
+const LatestNews = ( {latestNews} ) => {
   const sliderRef = useRef(null);
 
-  useEffect(() => {
-    Home().then(response => {
-      setLatestNews(response.data.berita_terbaru);
-    })
-    .catch(error => {
-      console.error('error fetching data:', error);
-    })
-  }, []);
 
   const prev = () => {
     const slider = sliderRef.current;
@@ -37,8 +28,7 @@ const LatestNews = () => {
         <div className="line"></div>
       </div>
         <div className="slider-2" ref={sliderRef}>
-        {latestNews.length > 0 ? (
-          latestNews.map((newsItem) => (
+        {latestNews.map((newsItem) => (
             <div className="card" key={newsItem.link}>
               <img src={newsItem.thumbnail} alt="test" />
               <div className="desc">
@@ -48,10 +38,7 @@ const LatestNews = () => {
                 <p>{newsItem.date}</p>
               </div>
             </div>
-          ))
-        ) : (
-          <p>Loading Latest News...</p>
-        )}
+          ))}
         </div>
 
       <div className="pagination-container">
