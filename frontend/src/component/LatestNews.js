@@ -1,37 +1,33 @@
-import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Home } from '../services/home.service';
 
 const LatestNews = () => {
   const [latestNews, setLatestNews] = useState([]);
   const sliderRef = useRef(null);
 
-  const prev = () => {
-    const slider = document.querySelector('.slider-2');
-    let containerDimensions = slider.getBoundingClientRect();
-    let containerWidth = containerDimensions.width;
+  useEffect(() => {
+    Home().then(response => {
+      setLatestNews(response.data.berita_terbaru);
+    })
+    .catch(error => {
+      console.error('error fetching data:', error);
+    })
+  }, []);
 
-    slider.scrollLeft -= containerWidth;
-  }
+  const prev = () => {
+    const slider = sliderRef.current;
+    if (slider) {
+      slider.scrollLeft -= slider.offsetWidth;
+    }
+  };
 
   const next = () => {
-      const slider = document.querySelector('.slider-2');
-      let containerDimensions = slider.getBoundingClientRect();
-      let containerWidth = containerDimensions.width;
-
-      slider.scrollLeft += containerWidth;
-  }
-
-  useEffect(() => {
-    axios.get('http://localhost:3000/api/home')
-      .then(response => {
-        const latestNewsData = response.data.data.berita_terbaru;
-        setLatestNews(latestNewsData);
-      })
-      .catch(error => {
-        console.error('Error fetching latest news:', error);
-      });
-  }, []);
+    const slider = sliderRef.current;
+    if (slider) {
+      slider.scrollLeft += slider.offsetWidth;
+    }
+  };
 
   return (
     <div className="latest-news-contents">
@@ -40,25 +36,34 @@ const LatestNews = () => {
         <p>Berita Terbaru</p>
         <div className="line"></div>
       </div>
-      <div className="slider-2" ref={sliderRef}>
-        {latestNews.map(newsItem => (
-          <div className="card" key={newsItem.link}>
-            <img src={newsItem.thumbnail} alt="test" />
-            <div className="desc">
-              <Link to={`/detail/${newsItem.endpoint}`} className="anchor">
-                {newsItem.title}
-              </Link>
-              <p>{newsItem.date}</p>
+        <div className="slider-2" ref={sliderRef}>
+        {latestNews.length > 0 ? (
+          latestNews.map((newsItem) => (
+            <div className="card" key={newsItem.link}>
+              <img src={newsItem.thumbnail} alt="test" />
+              <div className="desc">
+                <Link to={`/detail/${newsItem.endpoint}`} className="anchor">
+                  {newsItem.title}
+                </Link>
+                <p>{newsItem.date}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))
+        ) : (
+          <p>Loading Latest News...</p>
+        )}
+        </div>
+
       <div className="pagination-container">
-        <button onClick={prev}><i className="bi bi-chevron-left"></i></button>
-        <button onClick={next}><i className="bi bi-chevron-right"></i></button>
+        <button onClick={prev}>
+          <i className="bi bi-chevron-left"></i>
+        </button>
+        <button onClick={next}>
+          <i className="bi bi-chevron-right"></i>
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default LatestNews;

@@ -1,66 +1,45 @@
-// metropolis.js
-import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Home } from '../services/home.service';
 
 const Metropolis = () => {
   const [metropolisNews, setMetropolisNews] = useState([]);
   const sliderRef = useRef(null);
 
-  // const prev = () => {
-  //   const slider = sliderRef.current;
-  //   if (slider) {
-  //     let containerDimensions = slider.getBoundingClientRect();
-  //     let containerWidth = containerDimensions.width;
-  //     slider.scrollLeft -= containerWidth;
-  //   }
-  // }
-
-  // const next = () => {
-  //   const slider = sliderRef.current;
-  //   if (slider) {
-  //     let containerDimensions = slider.getBoundingClientRect();
-  //     let containerWidth = containerDimensions.width;
-  //     slider.scrollLeft += containerWidth;
-  //   }
-  // }
-
   const prev = () => {
-    const slider = document.querySelector('.slider-3');
-    let containerDimensions = slider.getBoundingClientRect();
-    let containerWidth = containerDimensions.width;
-
-    slider.scrollLeft -= containerWidth;
-  }
+    if (sliderRef.current) {
+      const containerWidth = sliderRef.current.offsetWidth;
+      sliderRef.current.scrollLeft -= containerWidth;
+    }
+  };
 
   const next = () => {
-      const slider = document.querySelector('.slider-3');
-      let containerDimensions = slider.getBoundingClientRect();
-      let containerWidth = containerDimensions.width;
-
-      slider.scrollLeft += containerWidth;
-  }
+    if (sliderRef.current) {
+      const containerWidth = sliderRef.current.offsetWidth;
+      sliderRef.current.scrollLeft += containerWidth;
+    }
+  };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/home')
-      .then(response => {
-        const metropolisNewsData = response.data.data.metropolis;
-        setMetropolisNews(metropolisNewsData);
-      })
-      .catch(error => {
-        console.error('Error fetching Metropolis news:', error);
-      });
+    Home().then(response => {
+      setMetropolisNews(response.data.metropolis);
+    })
+    .catch(error => {
+      console.error('error fetching data:', error);
+    })
   }, []);
 
   return (
     <div className="metropolis-contents">
       <div className="slider-3" ref={sliderRef}>
         {metropolisNews.length > 0 ? (
-          metropolisNews.map((news, index) => (
-            <div className="card" key={index}>
+          metropolisNews.map(news => (
+            <div className="card" key={news.endpoint}>
               <img src={news.thumbnail} alt="" />
               <div className="desc">
-                <Link to={news.link} className="anchor">{news.title}</Link>
+                <Link to={`/detail/${news.endpoint}`} className="anchor">
+                  {news.title}
+                </Link>
               </div>
             </div>
           ))
