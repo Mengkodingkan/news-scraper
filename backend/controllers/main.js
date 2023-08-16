@@ -90,7 +90,7 @@ const home = async (req, res) => {
         const title = $(el).find('h3.entry-title').text();
         const link = $(el).find('a').attr('href');
         const endpoint = link.replace(tools.BASE_URL, '');
-        const thumbnail = $(el).find('img').attr('data-src');
+        const thumbnail = $(el).find('img').attr('data-img-url');
         const date = $(el).find('.td-post-date').find('time').attr('datetime');
 
         obj.posting_populer.push({ title, thumbnail, date, link, endpoint });
