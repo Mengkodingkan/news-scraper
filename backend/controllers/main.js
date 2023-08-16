@@ -97,7 +97,7 @@ const home = async (req, res) => {
     });
 
     obj.kategori = [];
-    $(main).find('.td-pb-padding-side').find('li').each((i, el) => {
+    $(main).find('.td-pb-span4').find('.td-pb-padding-side').find('li').each((i, el) => {
         const title = $(el).find('.td-cat-name').text();
         const count = parseInt($(el).find('.td-cat-no').text());
         const link = $(el).find('a').attr('href');
